@@ -1,0 +1,48 @@
+using System.Diagnostics;
+using Serilog;
+
+namespace MomsdeklarationAPI.Middleware;
+
+public class RequestLoggingMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger _logger;
+
+    public RequestLoggingMiddleware(RequestDelegate next, ILogger logger)
+    {
+        _next = next;
+        _logger = logger;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        
+        var request = context.Request;
+        var correlationId = context.Items["CorrelationId"]?.ToString();
+
+        _logger.Information(
+            "Request started: {Method} {Path} {QueryString} [CorrelationId: {CorrelationId}]",
+            request.Method,
+            request.Path,
+            request.QueryString,
+            correlationId);
+
+        try
+        {
+            await _next(context);
+        }
+        finally
+        {
+            stopwatch.Stop();
+            
+            _logger.Information(
+                "Request completed: {Method} {Path} {StatusCode} in {ElapsedMilliseconds}ms [CorrelationId: {CorrelationId}]",
+                request.Method,
+                request.Path,
+                context.Response.StatusCode,
+                stopwatch.ElapsedMilliseconds,
+                correlationId);
+        }
+    }
+}
