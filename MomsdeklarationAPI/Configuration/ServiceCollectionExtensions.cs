@@ -56,10 +56,12 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddHealthChecksWithDependencies(this IServiceCollection services)
     {
+        var rootPath = OperatingSystem.IsWindows() ? "C:\\" : "/";
+
         services.AddHealthChecks()
             .AddCheck<SkatteverketHealthCheck>("skatteverket_api")
             .AddMemoryHealthCheck("memory")
-            .AddDiskStorageHealthCheck(options => options.AddDrive("C:\\", 1024))
+            .AddDiskStorageHealthCheck(options => options.AddDrive(rootPath, 1024))
             .AddProcessAllocatedMemoryHealthCheck(512);
 
         return services;
