@@ -1,6 +1,7 @@
 using MomsdeklarationAPI.Authentication;
 using MomsdeklarationAPI.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace MomsdeklarationAPI.Configuration;
 
@@ -25,8 +26,7 @@ public static class ServiceCollectionExtensions
         if (!services.Any(x => x.ServiceType == typeof(Microsoft.Extensions.Caching.Distributed.IDistributedCache)))
         {
             services.AddMemoryCache();
-            services.TryAddSingleton<Microsoft.Extensions.Caching.Distributed.IDistributedCache, 
-                Microsoft.Extensions.Caching.Memory.MemoryDistributedCache>();
+            services.TryAddSingleton<Microsoft.Extensions.Caching.Distributed.IDistributedCache, MemoryDistributedCache>();
         }
 
         return services;

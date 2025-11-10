@@ -51,8 +51,8 @@ public class ExceptionHandlingMiddleware
                 errorResponse.Message = "Authentication failed or token expired";
                 break;
 
-            case ArgumentException:
             case ArgumentNullException:
+            case ArgumentException:
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 errorResponse.Status = response.StatusCode;
                 errorResponse.Error = "Bad Request";
