@@ -32,7 +32,7 @@ try
         .AddFluentValidationClientsideAdapters();
     builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-    AutoMapper.Extensions.Microsoft.DependencyInjection.ServiceCollectionExtensions.AddAutoMapper(builder.Services, Assembly.GetExecutingAssembly());
+    builder.Services.AddAutoMapper(cfg => {}, Assembly.GetExecutingAssembly());
     
     builder.Services.Configure<SkatteverketApiSettings>(
         builder.Configuration.GetSection("SkatteverketAPI"));
