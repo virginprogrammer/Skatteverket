@@ -21,7 +21,7 @@ public class RequestLoggingMiddleware
         var request = context.Request;
         var correlationId = context.Items["CorrelationId"]?.ToString();
 
-        _logger.Information(
+        _logger.LogInformation(
             "Request started: {Method} {Path} {QueryString} [CorrelationId: {CorrelationId}]",
             request.Method,
             request.Path,
@@ -36,7 +36,7 @@ public class RequestLoggingMiddleware
         {
             stopwatch.Stop();
             
-            _logger.Information(
+            _logger.LogInformation(
                 "Request completed: {Method} {Path} {StatusCode} in {ElapsedMilliseconds}ms [CorrelationId: {CorrelationId}]",
                 request.Method,
                 request.Path,

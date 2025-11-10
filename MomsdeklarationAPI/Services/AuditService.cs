@@ -29,7 +29,7 @@ public class AuditService : IAuditService
         var correlationId = context?.Items["CorrelationId"]?.ToString();
         var ipAddress = GetClientIpAddress();
 
-        _logger.Information("API_CALL: Operation={Operation} User={User} Redovisare={Redovisare} Period={Period} Result={Result} IP={IP} CorrelationId={CorrelationId}",
+        _logger.LogInformation("API_CALL: Operation={Operation} User={User} Redovisare={Redovisare} Period={Period} Result={Result} IP={IP} CorrelationId={CorrelationId}",
             operation, user, redovisare, redovisningsperiod ?? "N/A", result, ipAddress, correlationId);
 
         await Task.CompletedTask;
@@ -42,12 +42,12 @@ public class AuditService : IAuditService
 
         if (success)
         {
-            _logger.Information("AUTH_SUCCESS: Event={EventType} User={User} IP={IP}",
+            _logger.LogInformation("AUTH_SUCCESS: Event={EventType} User={User} IP={IP}",
                 eventType, userName, ipAddress);
         }
         else
         {
-            _logger.Warning("AUTH_FAILURE: Event={EventType} User={User} Reason={Reason} IP={IP}",
+            _logger.LogWarning("AUTH_FAILURE: Event={EventType} User={User} Reason={Reason} IP={IP}",
                 eventType, userName, reason ?? "Unknown", ipAddress);
         }
 
@@ -60,7 +60,7 @@ public class AuditService : IAuditService
         var ipAddress = GetClientIpAddress();
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString();
 
-        _logger.Information("DATA_ACCESS: Type={DataType} Identifier={Identifier} Action={Action} User={User} IP={IP} CorrelationId={CorrelationId}",
+        _logger.LogInformation("DATA_ACCESS: Type={DataType} Identifier={Identifier} Action={Action} User={User} IP={IP} CorrelationId={CorrelationId}",
             dataType, identifier, action, userName, ipAddress, correlationId);
 
         await Task.CompletedTask;
@@ -72,7 +72,7 @@ public class AuditService : IAuditService
         var clientIp = ipAddress ?? GetClientIpAddress();
         var correlationId = _httpContextAccessor.HttpContext?.Items["CorrelationId"]?.ToString();
 
-        _logger.Warning("SECURITY_EVENT: Event={EventType} Description={Description} User={User} IP={IP} CorrelationId={CorrelationId}",
+        _logger.LogWarning("SECURITY_EVENT: Event={EventType} Description={Description} User={User} IP={IP} CorrelationId={CorrelationId}",
             eventType, description, userName, clientIp, correlationId);
 
         await Task.CompletedTask;

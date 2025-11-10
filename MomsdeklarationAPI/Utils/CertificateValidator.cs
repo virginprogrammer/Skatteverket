@@ -1,5 +1,5 @@
+using MomsdeklarationAPI.Services;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Utils;
 
@@ -55,7 +55,7 @@ public class CertificateValidator : ICertificateValidator
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error validating certificate");
+            _logger.LogError(ex, "Error validating certificate");
             result.Errors.Add($"Validation failed: {ex.Message}");
         }
 
@@ -98,7 +98,7 @@ public class CertificateValidator : ICertificateValidator
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error validating certificate chain");
+            _logger.LogError(ex, "Error validating certificate chain");
             result.Errors.Add($"Chain validation failed: {ex.Message}");
         }
 
@@ -128,7 +128,7 @@ public class CertificateValidator : ICertificateValidator
         }
         catch (Exception ex)
         {
-            _logger.Warning(ex, "Could not check revocation status");
+            _logger.LogWarning(ex, "Could not check revocation status");
             return false;
         }
     }

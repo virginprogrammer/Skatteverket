@@ -40,7 +40,7 @@ public class RateLimitingMiddleware
         
         if (requestCount >= _options.MaxRequests)
         {
-            _logger.Warning("Rate limit exceeded for client {ClientId}. Requests: {RequestCount}/{MaxRequests}",
+            _logger.LogWarning("Rate limit exceeded for client {ClientId}. Requests: {RequestCount}/{MaxRequests}",
                 clientId, requestCount, _options.MaxRequests);
 
             await HandleRateLimitExceeded(context);

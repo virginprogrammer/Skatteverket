@@ -30,7 +30,7 @@ public class ExceptionHandlingMiddleware
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.Error(exception, "Unhandled exception occurred");
+        _logger.LogError(exception, "Unhandled exception occurred");
 
         var response = context.Response;
         response.ContentType = "application/json";
@@ -51,8 +51,8 @@ public class ExceptionHandlingMiddleware
                 errorResponse.Message = "Authentication failed or token expired";
                 break;
 
-            case ArgumentException:
             case ArgumentNullException:
+            case ArgumentException:
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 errorResponse.Status = response.StatusCode;
                 errorResponse.Error = "Bad Request";
