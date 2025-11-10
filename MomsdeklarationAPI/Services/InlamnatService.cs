@@ -25,14 +25,14 @@ public class InlamnatService : IInlamnatService
     {
         try
         {
-            _logger.Information("Fetching submitted declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Fetching submitted declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             return await _apiClient.GetSubmittedDeclarationAsync(redovisare, redovisningsperiod);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch submitted declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to fetch submitted declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -42,14 +42,14 @@ public class InlamnatService : IInlamnatService
     {
         try
         {
-            _logger.Information("Fetching submitted declarations for {Count} organizations", 
+            _logger.LogInformation("Fetching submitted declarations for {Count} organizations", 
                 request.Redovisare.Count);
             
             return await _apiClient.GetMultipleSubmittedDeclarationsAsync(request);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch multiple submitted declarations");
+            _logger.LogError(ex, "Failed to fetch multiple submitted declarations");
             throw;
         }
     }

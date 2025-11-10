@@ -35,16 +35,16 @@ public class TokenCacheService : ITokenCacheService
 
             if (string.IsNullOrEmpty(cachedData))
             {
-                _logger.Debug("Cache miss for key: {Key}", fullKey);
+                _logger.LogDebug("Cache miss for key: {Key}", fullKey);
                 return null;
             }
 
-            _logger.Debug("Cache hit for key: {Key}", fullKey);
+            _logger.LogDebug("Cache hit for key: {Key}", fullKey);
             return JsonConvert.DeserializeObject<T>(cachedData);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error retrieving from cache with key: {Key}", key);
+            _logger.LogError(ex, "Error retrieving from cache with key: {Key}", key);
             return null;
         }
     }
@@ -63,11 +63,11 @@ public class TokenCacheService : ITokenCacheService
             };
 
             await _cache.SetStringAsync(fullKey, serializedData, options);
-            _logger.Debug("Cached data with key: {Key}, expiration: {Expiration}", fullKey, expiration);
+            _logger.LogDebug("Cached data with key: {Key}, expiration: {Expiration}", fullKey, expiration);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error setting cache with key: {Key}", key);
+            _logger.LogError(ex, "Error setting cache with key: {Key}", key);
         }
     }
 
@@ -77,11 +77,11 @@ public class TokenCacheService : ITokenCacheService
         {
             var fullKey = GetFullKey(key);
             await _cache.RemoveAsync(fullKey);
-            _logger.Debug("Removed cache entry with key: {Key}", fullKey);
+            _logger.LogDebug("Removed cache entry with key: {Key}", fullKey);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error removing cache with key: {Key}", key);
+            _logger.LogError(ex, "Error removing cache with key: {Key}", key);
         }
     }
 

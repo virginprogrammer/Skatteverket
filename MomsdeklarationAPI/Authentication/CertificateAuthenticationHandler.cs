@@ -30,13 +30,13 @@ public class CertificateAuthenticationHandler : AuthenticationHandler<Certificat
 
             if (clientCertificate == null)
             {
-                _logger.Warning("No client certificate provided");
+                _logger.LogWarning("No client certificate provided");
                 return Task.FromResult(AuthenticateResult.NoResult());
             }
 
             if (!ValidateCertificate(clientCertificate))
             {
-                _logger.Warning("Invalid client certificate: {Subject}", clientCertificate.Subject);
+                _logger.LogWarning("Invalid client certificate: {Subject}", clientCertificate.Subject);
                 return Task.FromResult(AuthenticateResult.Fail("Invalid certificate"));
             }
 
@@ -53,13 +53,13 @@ public class CertificateAuthenticationHandler : AuthenticationHandler<Certificat
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-            _logger.Information("Certificate authentication successful for {Subject}", clientCertificate.Subject);
+            _logger.LogInformation("Certificate authentication successful for {Subject}", clientCertificate.Subject);
 
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Certificate authentication failed");
+            _logger.LogError(ex, "Certificate authentication failed");
             return Task.FromResult(AuthenticateResult.Fail("Authentication failed"));
         }
     }
@@ -71,21 +71,21 @@ public class CertificateAuthenticationHandler : AuthenticationHandler<Certificat
 
         if (DateTime.UtcNow < certificate.NotBefore || DateTime.UtcNow > certificate.NotAfter)
         {
-            _logger.Warning("Certificate expired or not yet valid");
+            _logger.LogWarning("Certificate expired or not yet valid");
             return false;
         }
 
         if (!string.IsNullOrEmpty(Options.RequiredThumbprint) && 
             !string.Equals(certificate.Thumbprint, Options.RequiredThumbprint, StringComparison.OrdinalIgnoreCase))
         {
-            _logger.Warning("Certificate thumbprint mismatch");
+            _logger.LogWarning("Certificate thumbprint mismatch");
             return false;
         }
 
         if (!string.IsNullOrEmpty(Options.RequiredIssuer) && 
             !certificate.Issuer.Contains(Options.RequiredIssuer, StringComparison.OrdinalIgnoreCase))
         {
-            _logger.Warning("Certificate issuer mismatch");
+            _logger.LogWarning("Certificate issuer mismatch");
             return false;
         }
 
@@ -112,7 +112,7 @@ public class CertificateAuthenticationHandler : AuthenticationHandler<Certificat
             
             if (selfSignedValid)
             {
-                _logger.Warning("Accepting self-signed certificate");
+                _logger.LogWarning("Accepting self-signed certificate");
                 return true;
             }
         }

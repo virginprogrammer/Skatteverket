@@ -38,11 +38,11 @@ public class TokenService : ITokenService
     {
         if (_cache.TryGetValue(TOKEN_CACHE_KEY, out string? cachedToken) && !string.IsNullOrEmpty(cachedToken))
         {
-            _logger.Debug("Using cached access token");
+            _logger.LogDebug("Using cached access token");
             return cachedToken;
         }
 
-        _logger.Information("Requesting new access token");
+        _logger.LogInformation("Requesting new access token");
         var tokenResponse = await RequestTokenAsync();
 
         if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.AccessToken))
@@ -54,7 +54,7 @@ public class TokenService : ITokenService
         var cacheExpiry = TimeSpan.FromSeconds(expiresIn - 60);
 
         _cache.Set(TOKEN_CACHE_KEY, tokenResponse.AccessToken, cacheExpiry);
-        _logger.Information("Access token cached for {CacheExpiry} seconds", cacheExpiry.TotalSeconds);
+        _logger.LogInformation("Access token cached for {CacheExpiry} seconds", cacheExpiry.TotalSeconds);
 
         return tokenResponse.AccessToken;
     }
@@ -69,7 +69,7 @@ public class TokenService : ITokenService
 
             if (string.IsNullOrEmpty(tokenEndpoint))
             {
-                _logger.Error("Token endpoint not configured");
+                _logger.LogError("Token endpoint not configured");
                 throw new InvalidOperationException("Token endpoint not configured");
             }
 
@@ -83,14 +83,14 @@ public class TokenService : ITokenService
 
             tokenRequest.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-            _logger.Debug("Requesting token from {TokenEndpoint}", tokenEndpoint);
+            _logger.LogDebug("Requesting token from {TokenEndpoint}", tokenEndpoint);
             
             var response = await _httpClient.PostAsync(tokenEndpoint, tokenRequest);
             var content = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.Error("Token request failed with status {StatusCode}: {Content}", 
+                _logger.LogError("Token request failed with status {StatusCode}: {Content}", 
                     response.StatusCode, content);
                 throw new HttpRequestException($"Token request failed: {response.StatusCode}");
             }
@@ -99,14 +99,14 @@ public class TokenService : ITokenService
             
             if (tokenResponse != null)
             {
-                _logger.Information("Successfully obtained access token");
+                _logger.LogInformation("Successfully obtained access token");
             }
 
             return tokenResponse;
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to request access token");
+            _logger.LogError(ex, "Failed to request access token");
             throw;
         }
     }

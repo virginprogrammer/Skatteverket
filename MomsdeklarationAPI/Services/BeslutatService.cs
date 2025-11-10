@@ -25,14 +25,14 @@ public class BeslutatService : IBeslutatService
     {
         try
         {
-            _logger.Information("Fetching decided declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Fetching decided declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             return await _apiClient.GetDecidedDeclarationAsync(redovisare, redovisningsperiod);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch decided declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to fetch decided declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -42,14 +42,14 @@ public class BeslutatService : IBeslutatService
     {
         try
         {
-            _logger.Information("Fetching decided declarations for {Count} organizations", 
+            _logger.LogInformation("Fetching decided declarations for {Count} organizations", 
                 request.Redovisare.Count);
             
             return await _apiClient.GetMultipleDecidedDeclarationsAsync(request);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch multiple decided declarations");
+            _logger.LogError(ex, "Failed to fetch multiple decided declarations");
             throw;
         }
     }

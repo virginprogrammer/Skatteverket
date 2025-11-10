@@ -61,7 +61,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to create draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to create draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -79,7 +79,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to get draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -95,7 +95,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to delete draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to delete draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -112,7 +112,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get multiple drafts");
+            _logger.LogError(ex, "Failed to get multiple drafts");
             throw;
         }
     }
@@ -129,7 +129,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to validate draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to validate draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -145,7 +145,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to lock draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to lock draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -161,7 +161,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to unlock draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to unlock draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -179,7 +179,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get submitted declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to get submitted declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -196,7 +196,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get multiple submitted declarations");
+            _logger.LogError(ex, "Failed to get multiple submitted declarations");
             throw;
         }
     }
@@ -213,7 +213,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get decided declaration for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to get decided declaration for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -230,7 +230,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to get multiple decided declarations");
+            _logger.LogError(ex, "Failed to get multiple decided declarations");
             throw;
         }
     }
@@ -265,11 +265,11 @@ public class SkatteverketApiClient : ISkatteverketApiClient
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        _logger.Debug("Sending {Method} request to {Endpoint}", method, endpoint);
+        _logger.LogDebug("Sending {Method} request to {Endpoint}", method, endpoint);
         
         var response = await _httpClient.SendAsync(request);
         
-        _logger.Debug("Received response {StatusCode} from {Endpoint}", 
+        _logger.LogDebug("Received response {StatusCode} from {Endpoint}", 
             response.StatusCode, endpoint);
 
         return response;
@@ -304,7 +304,7 @@ public class SkatteverketApiClient : ISkatteverketApiClient
     {
         var content = await response.Content.ReadAsStringAsync();
         
-        _logger.Error("API request failed with status {StatusCode}: {Content}", 
+        _logger.LogError("API request failed with status {StatusCode}: {Content}", 
             response.StatusCode, content);
 
         var errorMessage = $"API request failed with status {response.StatusCode}";

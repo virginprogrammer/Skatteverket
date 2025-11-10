@@ -30,7 +30,7 @@ public class ExceptionHandlingMiddleware
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.Error(exception, "Unhandled exception occurred");
+        _logger.LogError(exception, "Unhandled exception occurred");
 
         var response = context.Response;
         response.ContentType = "application/json";

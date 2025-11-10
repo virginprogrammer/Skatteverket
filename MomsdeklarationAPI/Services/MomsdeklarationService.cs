@@ -40,13 +40,13 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Creating/updating draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Creating/updating draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
 
             var validationResult = await _validationService.ValidateMomsuppgiftAsync(request.Momsuppgift);
             if (!validationResult.IsValid)
             {
-                _logger.Warning("Validation failed for draft: {Errors}", 
+                _logger.LogWarning("Validation failed for draft: {Errors}", 
                     string.Join(", ", validationResult.Errors));
             }
 
@@ -54,12 +54,12 @@ public class MomsdeklarationService : IMomsdeklarationService
 
             if (response.Sparad)
             {
-                _logger.Information("Draft successfully saved for {Redovisare}/{Redovisningsperiod}", 
+                _logger.LogInformation("Draft successfully saved for {Redovisare}/{Redovisningsperiod}", 
                     redovisare, redovisningsperiod);
             }
             else
             {
-                _logger.Warning("Draft not saved for {Redovisare}/{Redovisningsperiod}. Status: {Status}", 
+                _logger.LogWarning("Draft not saved for {Redovisare}/{Redovisningsperiod}. Status: {Status}", 
                     redovisare, redovisningsperiod, response.KontrollResultat?.Status);
             }
 
@@ -67,7 +67,7 @@ public class MomsdeklarationService : IMomsdeklarationService
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to create/update draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to create/update draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -77,14 +77,14 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Fetching draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Fetching draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             return await _apiClient.GetDraftAsync(redovisare, redovisningsperiod);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to fetch draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -94,14 +94,14 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Deleting draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Deleting draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             var result = await _apiClient.DeleteDraftAsync(redovisare, redovisningsperiod);
             
             if (result)
             {
-                _logger.Information("Draft successfully deleted for {Redovisare}/{Redovisningsperiod}", 
+                _logger.LogInformation("Draft successfully deleted for {Redovisare}/{Redovisningsperiod}", 
                     redovisare, redovisningsperiod);
             }
             
@@ -109,7 +109,7 @@ public class MomsdeklarationService : IMomsdeklarationService
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to delete draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to delete draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -119,13 +119,13 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Fetching drafts for {Count} organizations", request.Redovisare.Count);
+            _logger.LogInformation("Fetching drafts for {Count} organizations", request.Redovisare.Count);
             
             return await _apiClient.GetMultipleDraftsAsync(request);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to fetch multiple drafts");
+            _logger.LogError(ex, "Failed to fetch multiple drafts");
             throw;
         }
     }
@@ -137,7 +137,7 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Validating draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Validating draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
 
             var localValidation = await _validationService.ValidateMomsuppgiftAsync(request.Momsuppgift);
@@ -161,7 +161,7 @@ public class MomsdeklarationService : IMomsdeklarationService
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to validate draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to validate draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -171,14 +171,14 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Locking draft for signing: {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Locking draft for signing: {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             var result = await _apiClient.LockDraftAsync(redovisare, redovisningsperiod);
             
             if (result)
             {
-                _logger.Information("Draft successfully locked for {Redovisare}/{Redovisningsperiod}", 
+                _logger.LogInformation("Draft successfully locked for {Redovisare}/{Redovisningsperiod}", 
                     redovisare, redovisningsperiod);
             }
             
@@ -186,7 +186,7 @@ public class MomsdeklarationService : IMomsdeklarationService
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to lock draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to lock draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
@@ -196,14 +196,14 @@ public class MomsdeklarationService : IMomsdeklarationService
     {
         try
         {
-            _logger.Information("Unlocking draft: {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogInformation("Unlocking draft: {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             
             var result = await _apiClient.UnlockDraftAsync(redovisare, redovisningsperiod);
             
             if (result)
             {
-                _logger.Information("Draft successfully unlocked for {Redovisare}/{Redovisningsperiod}", 
+                _logger.LogInformation("Draft successfully unlocked for {Redovisare}/{Redovisningsperiod}", 
                     redovisare, redovisningsperiod);
             }
             
@@ -211,7 +211,7 @@ public class MomsdeklarationService : IMomsdeklarationService
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Failed to unlock draft for {Redovisare}/{Redovisningsperiod}", 
+            _logger.LogError(ex, "Failed to unlock draft for {Redovisare}/{Redovisningsperiod}", 
                 redovisare, redovisningsperiod);
             throw;
         }
