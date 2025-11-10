@@ -7,7 +7,7 @@ using MomsdeklarationAPI.Models.Requests;
 using MomsdeklarationAPI.Models.Responses;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Services;
 
@@ -27,14 +27,14 @@ public class SkatteverketApiClient : ISkatteverketApiClient
     private readonly HttpClient _httpClient;
     private readonly ITokenService _tokenService;
     private readonly SkatteverketApiSettings _settings;
-    private readonly ILogger _logger;
+    private readonly ILogger<SkatteverketApiClient> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public SkatteverketApiClient(
         IHttpClientFactory httpClientFactory,
         ITokenService tokenService,
         IOptions<SkatteverketApiSettings> settings,
-        ILogger logger,
+        ILogger<SkatteverketApiClient> logger,
         IHttpContextAccessor httpContextAccessor)
     {
         _httpClient = httpClientFactory.CreateClient("SkatteverketAPI");

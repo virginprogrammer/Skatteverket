@@ -3,20 +3,20 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Authentication;
 
 public class CertificateAuthenticationHandler : AuthenticationHandler<CertificateAuthenticationOptions>
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<CertificateAuthenticationHandler> _logger;
 
     public CertificateAuthenticationHandler(
         IOptionsMonitor<CertificateAuthenticationOptions> options,
         ILoggerFactory loggerFactory,
         UrlEncoder encoder,
         ISystemClock clock,
-        ILogger logger)
+        ILogger<CertificateAuthenticationHandler> logger)
         : base(options, loggerFactory, encoder, clock)
     {
         _logger = logger;

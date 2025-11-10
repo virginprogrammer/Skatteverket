@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Authentication;
 
@@ -17,10 +17,10 @@ public interface ITokenCacheService
 public class TokenCacheService : ITokenCacheService
 {
     private readonly IDistributedCache _cache;
-    private readonly ILogger _logger;
+    private readonly ILogger<TokenCacheService> _logger;
     private const string CACHE_PREFIX = "momsdeklaration:token:";
 
-    public TokenCacheService(IDistributedCache cache, ILogger logger)
+    public TokenCacheService(IDistributedCache cache, ILogger<TokenCacheService> logger)
     {
         _cache = cache;
         _logger = logger;

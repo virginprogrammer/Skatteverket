@@ -1,14 +1,14 @@
 using System.Diagnostics;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Middleware;
 
 public class RequestLoggingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger _logger;
+    private readonly ILogger<RequestLoggingMiddleware> _logger;
 
-    public RequestLoggingMiddleware(RequestDelegate next, ILogger logger)
+    public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
     {
         _next = next;
         _logger = logger;

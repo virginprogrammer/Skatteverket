@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Services;
 
@@ -13,10 +13,10 @@ public interface IAuditService
 
 public class AuditService : IAuditService
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<AuditService> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuditService(ILogger logger, IHttpContextAccessor httpContextAccessor)
+    public AuditService(ILogger<AuditService> logger, IHttpContextAccessor httpContextAccessor)
     {
         _logger = logger;
         _httpContextAccessor = httpContextAccessor;

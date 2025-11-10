@@ -1,6 +1,7 @@
 using MomsdeklarationAPI.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Utils;
 
@@ -96,7 +97,7 @@ public static class ErrorHandlingExtensions
 
     public static async Task<T?> ExecuteWithErrorHandlingAsync<T>(
         Func<Task<T>> operation,
-        ILogger logger,
+        Microsoft.Extensions.Logging.ILogger logger,
         string operationName) where T : class
     {
         try
@@ -105,29 +106,29 @@ public static class ErrorHandlingExtensions
         }
         catch (HttpRequestException ex)
         {
-            logger.Error(ex, "HTTP request failed in {OperationName}", operationName);
+            logger.LogError(ex, "HTTP request failed in {OperationName}", operationName);
             throw;
         }
         catch (TaskCanceledException ex)
         {
-            logger.Error(ex, "Operation timed out in {OperationName}", operationName);
+            logger.LogError(ex, "Operation timed out in {OperationName}", operationName);
             throw new TimeoutException($"Operation {operationName} timed out", ex);
         }
         catch (UnauthorizedAccessException ex)
         {
-            logger.Error(ex, "Unauthorized access in {OperationName}", operationName);
+            logger.LogError(ex, "Unauthorized access in {OperationName}", operationName);
             throw;
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Unexpected error in {OperationName}", operationName);
+            logger.LogError(ex, "Unexpected error in {OperationName}", operationName);
             throw;
         }
     }
 
     public static async Task ExecuteWithErrorHandlingAsync(
         Func<Task> operation,
-        ILogger logger,
+        Microsoft.Extensions.Logging.ILogger logger,
         string operationName)
     {
         try
@@ -136,22 +137,22 @@ public static class ErrorHandlingExtensions
         }
         catch (HttpRequestException ex)
         {
-            logger.Error(ex, "HTTP request failed in {OperationName}", operationName);
+            logger.LogError(ex, "HTTP request failed in {OperationName}", operationName);
             throw;
         }
         catch (TaskCanceledException ex)
         {
-            logger.Error(ex, "Operation timed out in {OperationName}", operationName);
+            logger.LogError(ex, "Operation timed out in {OperationName}", operationName);
             throw new TimeoutException($"Operation {operationName} timed out", ex);
         }
         catch (UnauthorizedAccessException ex)
         {
-            logger.Error(ex, "Unauthorized access in {OperationName}", operationName);
+            logger.LogError(ex, "Unauthorized access in {OperationName}", operationName);
             throw;
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Unexpected error in {OperationName}", operationName);
+            logger.LogError(ex, "Unexpected error in {OperationName}", operationName);
             throw;
         }
     }
