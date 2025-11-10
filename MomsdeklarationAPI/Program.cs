@@ -31,8 +31,8 @@ try
     builder.Services.AddFluentValidationAutoValidation()
         .AddFluentValidationClientsideAdapters();
     builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-    
-    builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+    AutoMapper.Extensions.Microsoft.DependencyInjection.ServiceCollectionExtensions.AddAutoMapper(builder.Services, Assembly.GetExecutingAssembly());
     
     builder.Services.Configure<SkatteverketApiSettings>(
         builder.Configuration.GetSection("SkatteverketAPI"));

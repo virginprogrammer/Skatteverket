@@ -20,6 +20,10 @@ public interface ISkatteverketApiClient
     Task<KontrollResultat> ValidateDraftAsync(string redovisare, string redovisningsperiod, UtkastPostRequest request);
     Task<bool> LockDraftAsync(string redovisare, string redovisningsperiod);
     Task<bool> UnlockDraftAsync(string redovisare, string redovisningsperiod);
+    Task<InlamnatGetResponse> GetSubmittedDeclarationAsync(string redovisare, string redovisningsperiod);
+    Task<InlamnatPostResponse> GetMultipleSubmittedDeclarationsAsync(HamtaPostMultiRequest request);
+    Task<BeslutatGetResponse> GetDecidedDeclarationAsync(string redovisare, string redovisningsperiod);
+    Task<BeslutatPostResponse> GetMultipleDecidedDeclarationsAsync(HamtaPostMultiRequest request);
 }
 
 public class SkatteverketApiClient : ISkatteverketApiClient
