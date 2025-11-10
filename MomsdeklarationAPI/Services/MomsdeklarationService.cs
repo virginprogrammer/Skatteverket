@@ -1,7 +1,7 @@
 using MomsdeklarationAPI.Models.DTOs;
 using MomsdeklarationAPI.Models.Requests;
 using MomsdeklarationAPI.Models.Responses;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Services;
 
@@ -20,12 +20,12 @@ public class MomsdeklarationService : IMomsdeklarationService
 {
     private readonly ISkatteverketApiClient _apiClient;
     private readonly IValidationService _validationService;
-    private readonly ILogger _logger;
+    private readonly ILogger<MomsdeklarationService> _logger;
 
     public MomsdeklarationService(
         ISkatteverketApiClient apiClient,
         IValidationService validationService,
-        ILogger logger)
+        ILogger<MomsdeklarationService> logger)
     {
         _apiClient = apiClient;
         _validationService = validationService;

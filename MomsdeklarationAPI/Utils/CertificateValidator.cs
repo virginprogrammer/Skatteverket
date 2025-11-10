@@ -1,5 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Utils;
 
@@ -13,9 +13,9 @@ public interface ICertificateValidator
 
 public class CertificateValidator : ICertificateValidator
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<CertificateValidator> _logger;
 
-    public CertificateValidator(ILogger logger)
+    public CertificateValidator(ILogger<CertificateValidator> logger)
     {
         _logger = logger;
     }

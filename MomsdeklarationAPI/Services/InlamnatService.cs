@@ -1,6 +1,6 @@
 using MomsdeklarationAPI.Models.Requests;
 using MomsdeklarationAPI.Models.Responses;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Services;
 
@@ -13,9 +13,9 @@ public interface IInlamnatService
 public class InlamnatService : IInlamnatService
 {
     private readonly ISkatteverketApiClient _apiClient;
-    private readonly ILogger _logger;
+    private readonly ILogger<InlamnatService> _logger;
 
-    public InlamnatService(ISkatteverketApiClient apiClient, ILogger logger)
+    public InlamnatService(ISkatteverketApiClient apiClient, ILogger<InlamnatService> logger)
     {
         _apiClient = apiClient;
         _logger = logger;

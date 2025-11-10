@@ -2,7 +2,7 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Net;
 using MomsdeklarationAPI.Models.Responses;
 using Newtonsoft.Json;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Middleware;
 
@@ -10,13 +10,13 @@ public class RateLimitingMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IMemoryCache _cache;
-    private readonly ILogger _logger;
+    private readonly ILogger<RateLimitingMiddleware> _logger;
     private readonly RateLimitOptions _options;
 
     public RateLimitingMiddleware(
         RequestDelegate next,
         IMemoryCache cache,
-        ILogger logger,
+        ILogger<RateLimitingMiddleware> logger,
         RateLimitOptions options)
     {
         _next = next;

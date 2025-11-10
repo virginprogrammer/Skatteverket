@@ -4,7 +4,7 @@ using MomsdeklarationAPI.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Authentication;
 
@@ -19,14 +19,14 @@ public class TokenService : ITokenService
     private readonly HttpClient _httpClient;
     private readonly IMemoryCache _cache;
     private readonly SkatteverketApiSettings _settings;
-    private readonly ILogger _logger;
+    private readonly ILogger<TokenService> _logger;
     private const string TOKEN_CACHE_KEY = "skatteverket_access_token";
 
     public TokenService(
         IHttpClientFactory httpClientFactory,
         IMemoryCache cache,
         IOptions<SkatteverketApiSettings> settings,
-        ILogger logger)
+        ILogger<TokenService> logger)
     {
         _httpClient = httpClientFactory.CreateClient("SkatteverketAPI");
         _cache = cache;

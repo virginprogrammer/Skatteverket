@@ -1,7 +1,6 @@
 using MomsdeklarationAPI.Authentication;
 using MomsdeklarationAPI.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Serilog;
 
 namespace MomsdeklarationAPI.Configuration;
 
@@ -18,8 +17,6 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<IBeslutatService, BeslutatService>();
         services.TryAddScoped<IAuditService, AuditService>();
 
-        services.TryAddSingleton<ILogger>(Log.Logger);
-        
         return services;
     }
 
