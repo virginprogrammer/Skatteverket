@@ -1,18 +1,13 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.IdentityModel.Tokens;
 using MomsdeklarationAPI.Configuration;
 using MomsdeklarationAPI.Middleware;
-using MomsdeklarationAPI.Services;
-using MomsdeklarationAPI.Authentication;
-using MomsdeklarationAPI.Utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.DataProtection;
 using Serilog;
-using System.Security.Cryptography.X509Certificates;
-using FluentValidation.AspNetCore;
-using FluentValidation;
 using System.Reflection;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 

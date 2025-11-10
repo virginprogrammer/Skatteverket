@@ -1,6 +1,5 @@
 using MomsdeklarationAPI.Models.Requests;
 using MomsdeklarationAPI.Models.Responses;
-using Microsoft.Extensions.Logging;
 
 namespace MomsdeklarationAPI.Services;
 
