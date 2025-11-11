@@ -31,7 +31,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new InlamnatPostResponse
         {
-            Inlämnat = new List<object>()
+            Inlamnade = new List<InlamnatItem>()
         };
 
         _factory.MockSkatteverketApiClient
@@ -89,7 +89,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new InlamnatGetResponse
         {
-            Inlämnat = null
+            Momsuppgift = new Models.DTOs.Momsuppgift()
         };
 
         _factory.MockSkatteverketApiClient

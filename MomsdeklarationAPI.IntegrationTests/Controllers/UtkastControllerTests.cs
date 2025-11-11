@@ -31,7 +31,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new UtkastPostMultiResponse
         {
-            Utkast = new List<object>()
+            Utkast = new List<UtkastItem>()
         };
 
         _factory.MockSkatteverketApiClient
@@ -73,7 +73,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new UtkastGetResponse
         {
-            Momsuppgift = null
+            Momsuppgift = new Models.DTOs.Momsuppgift()
         };
 
         _factory.MockSkatteverketApiClient
@@ -114,7 +114,8 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new UtkastResponse
         {
-            Status = "SAVED"
+            Sparad = true,
+            Last = false
         };
 
         _factory.MockSkatteverketApiClient

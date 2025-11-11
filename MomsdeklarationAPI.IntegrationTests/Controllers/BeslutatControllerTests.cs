@@ -31,7 +31,7 @@ public class BeslutatControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new BeslutatPostResponse
         {
-            Beslut = new List<object>()
+            Beslutade = new List<BeslutatItem>()
         };
 
         _factory.MockSkatteverketApiClient
@@ -89,7 +89,7 @@ public class BeslutatControllerTests : IClassFixture<TestWebApplicationFactory>
 
         var expectedResponse = new BeslutatGetResponse
         {
-            Beslut = null
+            MomsuppgiftBeslut = new Models.DTOs.MomsuppgiftBeslut()
         };
 
         _factory.MockSkatteverketApiClient
