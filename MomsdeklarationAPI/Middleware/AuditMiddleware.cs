@@ -6,15 +6,13 @@ namespace MomsdeklarationAPI.Middleware;
 public class AuditMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly IAuditService _auditService;
 
-    public AuditMiddleware(RequestDelegate next, IAuditService auditService)
+    public AuditMiddleware(RequestDelegate next)
     {
         _next = next;
-        _auditService = auditService;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, IAuditService auditService)
     {
         if (!ShouldAudit(context.Request.Path))
         {
@@ -35,17 +33,17 @@ public class AuditMiddleware
             await _next(context);
 
             var result = context.Response.StatusCode < 400 ? "SUCCESS" : "FAILURE";
-            
-            await _auditService.LogApiCallAsync(
-                operation, 
-                redovisare ?? "N/A", 
-                redovisningsperiod, 
-                requestBody, 
+
+            await auditService.LogApiCallAsync(
+                operation,
+                redovisare ?? "N/A",
+                redovisningsperiod,
+                requestBody,
                 result);
 
             if (IsDataAccessOperation(operation))
             {
-                await _auditService.LogDataAccessAsync(
+                await auditService.LogDataAccessAsync(
                     "MomsDeklaration",
                     $"{redovisare}/{redovisningsperiod}",
                     GetDataAction(context.Request.Method),
