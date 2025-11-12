@@ -218,7 +218,7 @@ try
         .ExcludeFromDescription();
     
     Log.Information("MomsdeklarationAPI started successfully");
-    
+
     app.Run();
 }
 catch (Exception ex)
@@ -229,3 +229,6 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+// Make the implicit Program class public for testing
+public partial class Program { }
