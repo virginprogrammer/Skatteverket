@@ -34,8 +34,8 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
 
         var expectedResponse = new KontrollResultat
         {
-            Resultat = "VALID",
-            Felmeddelanden = new List<string>()
+            Status = "TODO",
+            Resultat = new List<Kontroll>()
         };
 
         _factory.MockSkatteverketApiClient
@@ -49,7 +49,7 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var result = await response.Content.ReadFromJsonAsync<KontrollResultat>();
         result.Should().NotBeNull();
-        result!.Resultat.Should().Be("VALID");
+        result!.Resultat.Should().BeEmpty();
     }
 
     [Fact]
@@ -101,8 +101,8 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
 
         var expectedResponse = new KontrollResultat
         {
-            Resultat = "VALID",
-            Felmeddelanden = new List<string>()
+            Status = "TODO",
+            Resultat = new List<Kontroll>()
         };
 
         _factory.MockSkatteverketApiClient
