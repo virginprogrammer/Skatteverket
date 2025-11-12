@@ -1,7 +1,5 @@
 using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
-using MomsdeklarationAPI.Models.Responses;
 using Moq;
 using Xunit;
 
