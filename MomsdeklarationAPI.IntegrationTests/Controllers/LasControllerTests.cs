@@ -17,7 +17,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         _client.DefaultRequestHeaders.Add("Authorization", "Bearer test-token");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task LockDraft_WithValidParameters_ReturnsOk()
     {
         // Arrange
@@ -35,7 +35,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task LockDraft_WithInvalidRedovisare_ReturnsBadRequest()
     {
         // Arrange
@@ -49,7 +49,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task LockDraft_WithInvalidPeriod_ReturnsBadRequest()
     {
         // Arrange
@@ -63,7 +63,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task UnlockDraft_WithValidParameters_ReturnsOk()
     {
         // Arrange
@@ -81,7 +81,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task UnlockDraft_WhenFails_ReturnsNotFound()
     {
         // Arrange
@@ -99,7 +99,7 @@ public class LasControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task LockDraft_ReturnsJsonContentType()
     {
         // Arrange

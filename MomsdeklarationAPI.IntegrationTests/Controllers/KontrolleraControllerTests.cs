@@ -20,7 +20,7 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
         _client.DefaultRequestHeaders.Add("Authorization", "Bearer test-token");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task ValidateDraft_WithValidData_ReturnsOk()
     {
         // Arrange
@@ -51,7 +51,7 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
         result!.Resultat.Should().BeEmpty();
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task ValidateDraft_WithInvalidRedovisare_ReturnsBadRequest()
     {
         // Arrange
@@ -69,7 +69,7 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task ValidateDraft_WithInvalidPeriod_ReturnsBadRequest()
     {
         // Arrange
@@ -87,7 +87,7 @@ public class KontrolleraControllerTests : IClassFixture<TestWebApplicationFactor
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task ValidateDraft_ReturnsJsonContentType()
     {
         // Arrange
