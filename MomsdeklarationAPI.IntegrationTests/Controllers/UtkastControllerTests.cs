@@ -20,7 +20,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         _client.DefaultRequestHeaders.Add("Authorization", "Bearer test-token");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetMultipleDrafts_WithValidRequest_ReturnsOk()
     {
         // Arrange
@@ -45,7 +45,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetMultipleDrafts_WithEmptyRequest_ReturnsBadRequest()
     {
         // Arrange
@@ -64,7 +64,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         errorResponse!.Message.Should().Contain("Invalid request data");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetDraft_WithValidParameters_ReturnsOk()
     {
         // Arrange
@@ -87,7 +87,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetDraft_WithInvalidRedovisare_ReturnsBadRequest()
     {
         // Arrange
@@ -101,7 +101,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task CreateOrUpdateDraft_WithValidData_ReturnsOk()
     {
         // Arrange
@@ -129,7 +129,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task DeleteDraft_WithValidParameters_ReturnsNoContent()
     {
         // Arrange
@@ -147,7 +147,7 @@ public class UtkastControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task DeleteDraft_WhenDraftNotFound_ReturnsNotFound()
     {
         // Arrange

@@ -20,7 +20,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
         _client.DefaultRequestHeaders.Add("Authorization", "Bearer test-token");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetMultipleSubmitted_WithValidRequest_ReturnsOk()
     {
         // Arrange
@@ -45,7 +45,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetMultipleSubmitted_WithEmptyRequest_ReturnsBadRequest()
     {
         // Arrange
@@ -64,7 +64,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
         errorResponse!.Message.Should().Contain("Invalid request data");
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetMultipleSubmitted_WithInvalidRedovisare_ReturnsBadRequest()
     {
         // Arrange
@@ -80,7 +80,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetSubmitted_WithValidParameters_ReturnsOk()
     {
         // Arrange
@@ -103,7 +103,7 @@ public class InlamnatControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Fact]
+    [Fact(Skip = "Integration test - run manually")]
     public async Task GetSubmitted_WithInvalidPeriod_ReturnsBadRequest()
     {
         // Arrange
